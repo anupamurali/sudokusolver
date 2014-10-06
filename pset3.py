@@ -71,9 +71,17 @@ class Sudoku:
     # PART 2 goes here.
     raise NotImplementedError
 
+  # Get most constrained empty square, fill it in with all possible
+  # values. 
+  # Return array of Sudoku instances
   def _getAllSuccessors(self):
-    # PART 1 goes here.
-    raise NotImplementedError
+    emptySquare = self._getFirstEmptySquare()
+    possValues = self._getPossibleValsFor(emptySquare)
+    successors = []
+    for val in possValues:
+      succ = self._fillEmptySquare(emptySquare,val)
+      successors.append(succ)
+    return successors
 
   def _getSuccessorsWithForwardChecking(self):
     return [s for s in self._getAllSuccessors() if s._forwardCheck()]
