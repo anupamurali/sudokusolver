@@ -121,4 +121,3 @@ print 'Solution: ' + str(solveCSP(mySudokuPuzzle))
 '''
 
   print 'Time elapsed: ' + str(timeit.timeit(solveSudoku, setup = setup, number = 1))
-
