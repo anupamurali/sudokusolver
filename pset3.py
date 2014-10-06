@@ -1,3 +1,7 @@
+"""
+Implemented by the wonderful Anupa Murali & Elliot Silva!
+"""
+
 from copy import deepcopy
 import timeit
 
@@ -121,3 +125,4 @@ print 'Solution: ' + str(solveCSP(mySudokuPuzzle))
 '''
 
   print 'Time elapsed: ' + str(timeit.timeit(solveSudoku, setup = setup, number = 1))
+
