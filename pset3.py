@@ -23,7 +23,7 @@ class Sudoku:
     return None
 
   def _getMostConstrainedEmptySquare(self):
-    minlen = 10
+    minLen = 10
     emptySquare = (0,0)
     for x in xrange(0,9):
       for y in xrange(0,9):
@@ -91,7 +91,7 @@ class Sudoku:
   ## Return array of Sudoku instances                                ##
   #####################################################################
   def _getAllSuccessors(self):
-    emptySquare = self._getFirstEmptySquare()
+    emptySquare = self._getMostConstrainedEmptySquare()
     possValues = self._getPossibleValsFor(emptySquare)
     def fillInWithVal(val): return self._fillEmptySquare(emptySquare, val)
     return map(fillInWithVal, possValues)
