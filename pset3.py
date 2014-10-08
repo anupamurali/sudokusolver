@@ -68,8 +68,12 @@ class Sudoku:
     return Sudoku(newBoard)
 
   def _forwardCheck(self):
-    # PART 2 goes here.
-    raise NotImplementedError
+    for x in xrange(0,9):
+      for y in xrange(0,9):
+        if not self.board[x][y]:
+          if len(self._getPossibleValsFor((x,y))) == 0:
+            return False
+    return True
 
   #####################################################################
   ## Get most constrained empty square, fill it in with all possible ##
@@ -87,8 +91,8 @@ class Sudoku:
 
   # PART 2: Swap out the implementation after implementing part 2
   def getSuccessors(self):
-    return self._getAllSuccessors()
-    # return self._getSuccessorsWithForwardChecking()
+    # return self._getAllSuccessors()
+    return self._getSuccessorsWithForwardChecking()
 
   def isFinalState(self):
     return self._getFirstEmptySquare() == None
