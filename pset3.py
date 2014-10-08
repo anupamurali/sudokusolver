@@ -23,13 +23,23 @@ class Sudoku:
     return None
 
   def _getMostConstrainedEmptySquare(self):
-    # Part 3 goes here.
-    raise NotImplementedError
+    minlen = 10
+    emptySquare = (0,0)
+    for x in xrange(0,9):
+      for y in xrange(0,9):
+        if not self.board[x][y]:
+          numVals = len(self._getPossibleValsFor((x,y)))
+          if numVals == 1:
+            return (x,y)
+          if numVals < minLen:
+            minLen = numVals
+            emptySquare = (x,y)
+    return emptySquare
 
   # PART 3: Swap out the implementation after implementing part 3
   def _getEmptySquare(self):
-    return self._getFirstEmptySquare()
-    # return self._getMostConstrainedEmptySquare()
+    # return self._getFirstEmptySquare()
+    return self._getMostConstrainedEmptySquare()
 
   def _getRow(self, x):
     return list(self.board[x])
