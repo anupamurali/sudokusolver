@@ -16,6 +16,15 @@ class Sudoku:
     return boardString
 
   def _getFirstEmptySquare(self):
+    """
+    Arguments:
+      self = an instantiation of a Sudoku board
+
+    Returns:
+      (x,y) = coordinates of the first empty square
+              in the Sudoku board, going from top left
+              to bottom right
+    """
     for x in xrange(0,9):
       for y in xrange(0,9):
         if not self.board[x][y]:
@@ -23,6 +32,17 @@ class Sudoku:
     return None
 
   def _getMostConstrainedEmptySquare(self):
+    """
+    Arguments:
+      self = an instantiation of a Sudoku board
+
+    Returns:
+      (x,y) = coordinates of the most constrained empty
+              square, the square with the least possible
+              number of values that could be placed there
+              without directly violating the constraints
+              imposed by the currently non-empty squares
+    """
     minLen = 10
     emptySquare = (0,0)
     for x in xrange(0,9):
@@ -78,6 +98,17 @@ class Sudoku:
     return Sudoku(newBoard)
 
   def _forwardCheck(self):
+    """
+    Arguments:
+      self = an instantiation of a Sudoku board
+
+    Returns:
+      True if for each empty square in this Sudoku board
+        there is at least one value that could go there
+        without directly violating constraints imposed
+        by the currently non-empty squares
+      False otherwise
+    """
     for x in xrange(0,9):
       for y in xrange(0,9):
         if not self.board[x][y]:
@@ -91,12 +122,37 @@ class Sudoku:
   ## Return array of Sudoku instances                                ##
   #####################################################################
   def _getAllSuccessors(self):
-    emptySquare = self._getMostConstrainedEmptySquare()
+    """
+    Arguments:
+      self = an instantiation of a Sudoku board
+
+    Returns:
+      list of Sudoku boards, each with a different
+      possible value in an empty square that won't
+      directly conflict with the constraints imposed
+      by the currently non-empty squares
+    """
+    emptySquare = self._getEmptySquare()
     possValues = self._getPossibleValsFor(emptySquare)
     def fillInWithVal(val): return self._fillEmptySquare(emptySquare, val)
     return map(fillInWithVal, possValues)
 
   def _getSuccessorsWithForwardChecking(self):
+    """
+    Arguments:
+      self = an instantiation of a Sudoku board
+
+    Returns:
+      list of Sudoku boards, each with a different
+      possible value in an empty square
+
+    Notes:
+      same as _getAllSuccessors except we only return
+      boards if every other empty square has at least one
+      possible value that won't directly violate the constraints
+      imposed by the currently non-empty squares, including the
+      newest one we are potentially deciding whether to add
+    """
     return [s for s in self._getAllSuccessors() if s._forwardCheck()]
 
   # PART 2: Swap out the implementation after implementing part 2
